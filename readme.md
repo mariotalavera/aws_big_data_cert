@@ -43,16 +43,12 @@ Data collection can be roughly divided into the three main scenarios.  Depending
 
 ---
 
-Voy por aqui
-
----
-
 * [Amazon Kinesis](amazon_kinesis.md)
-* AWS IoT Core
-* AWS Snowball
-* Amazon SQS
-* Amazon DMS
-* AWS Direct Connect
+* [AWS IoT Core](aws_iot_core.md)
+* [AWS Snowball](aws_snowball.md)
+* [Amazon SQS](amazon_sqs.md)
+* [Amazon DMS](amazon_dms.md)
+* [AWS Direct Connect](aws_direct_connect.md)
 
 ### Storage Category
 

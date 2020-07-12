@@ -15,7 +15,9 @@ _PUT_KINESIS_SLIDE_HERE_
 ## Kinesis Streams Overview
 
 * Streams are didvided into ordered Shard / Partitions
+
 _Image_Goes_Here_
+
 * Data retention is 24 hours by defaults. Can go up to 7 days.
 * Ability ti reprocess / replay data.
 * Multiple applications can consume the same stream.
