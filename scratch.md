@@ -1,67 +1,6 @@
 # scratch
 
-# Demo App for Class 
-# Requirements
-
-1. Order History App
-Server logs > Amazon Kinesis Data Stream > AWS Lambda > Amazon DynamoDB > Clinet App
-
-2. Product Recomendations
-Server Logs > Amazon Kinesis Data Firehose > Amazon S3 > Amazon EMR
-
-3. Predicting Order Quantities
-Server Logs > Amazon Kinesis Data Firehose > Amazon S3 > Amazon Machine Learning
-
-4. Transaction Rate Alarm
-Server Logs > Amazon Kinesis Data Streams > Amazon Kinesis Data Analytics > Amazon Kinesis Data Streams > AWS Lambda > Amazon SMS
-
-5. Near Real Time Log Analysis
-Server Logs > Amazon Kinesis Data Firehose > Amazon Elasticsearch Sevice
-
-6. Data Warehousing & Visualization
-Server Logs > Amazon Kinesis Firehose > Amazon S3 > AWS Glue > Amazon Ahena
-Server Logs > Amazon Kinesis Firehose > Amazon S3 > Amazon Redshift > Amazon Quicksight
-
-_PUTTING_IT_ALL_TOGETHER_SLIDE_HERE_
-
-# Set up budget here
-- https://console.aws.amazon.com/billing/home?region=us-east-1#/budgets
-
-# Collection Introduction
-* Real Time - Immediate actions
-** Kinesis Data Streams (KDS)
-** Simple Queue Srvce (SQS)
-** Internet Of Things (IoT)
-* Neat Real Time - Reactive actions
-** Kinesis Data Firehose (KDF)
-** Database Migration Service (DMS)
-* Batch - Historical analysis
-** Snowball
-** Data Pipeline
-
-# AWS Kinesis Overview
-* Kinesis is a managed alternative to Apache Kafka
-* Great for applicaiton logs, metrics, Iot, clickstreams
-* Great for 'real-time' big data.
-* Great for streaming processing frameworks (Spark, NiFi, etc)
-* Data is automatically replicated synchronously to 3 AZ.
-* Kinesis Streams: Low latency streaming ingest at scale
-* Kinasys Analytics: Perform real-time analytics on streams using SQL.
-
-_PUT_KINESIS_SLIDE_HERE_
-
-# Kinesis Streams Overview
-* Streams are didvided into ordered Shard / Partitions
-_Image_Goes_Here_
-* Data retention is 24 hours by defaults. Can go up to 7 days.
-* Ability ti reprocess / replay data.
-* Multiple applications can consume the same stream.
-* Real-Time processing with scale of throughput.
-* Once data is inserted in Kinesis, it cannot be deleted (immutability).
-
-# Kinesis Streams Shards
-
-# Kinesis Streams Records
+---
 
 # Todo
 
