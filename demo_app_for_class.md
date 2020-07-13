@@ -4,46 +4,46 @@ Case study, about
 
 ## Requirements
 
-### Order History App
+### Requirement 1 - Order History App
 
 ```mermaid
 graph LR
 a(Server logs) --> b(Amazon Kinesis<br> Data Stream) --> c(AWS<br> Lambda) --> d(Amazon<br> DynamoDB) --> e(Client App)
 ```
 
-### Product Recomendations
+### Requirement 2 - Product Recomendations
 
 ```mermaid
 graph LR
 a(Server Logs) --> b(Amazon Kinesis<br> Data Firehose) --> c(Amazon S3) --> d(Amazon EMR)
 ```
 
-### Predicting Order Quantities
+### Requirement 3 - Predicting Order Quantities
 
 ```mermaid
 graph LR
 a(Server Logs) --> b(Amazon Kinesis<br> Data Firehose) --> c(Amazon S3) --> d(Amazon<br> Machine<br> Learning)
 ```
 
-### Transaction Rate Alarm
+### Requirement 4 - Transaction Rate Alarm
 
 ```mermaid
 graph LR
 a(Server Logs) --> b(Amazon Kinesis<br> Data Streams) --> c(Amazon Kinesis<br> Data Analytics) --> d(Amazon Kinesis<br> Data Streams) --> e(AWS<br> Lambda) --> f(Amazon<br> SMS)
 ```
 
-### Near Real Time Log Analysis
+### Requirement 5 - Near Real Time Log Analysis
 
 ```mermaid
 graph LR
 a(Server Logs) --> b(Amazon Kinesis<br> Data Firehose) --> c(Amazon <br>Elasticsearch<br> Sevice)
 ```
 
-### Data Warehousing & Visualization
+### Requirement 6 - Data Warehousing & Visualization
 
 ```mermaid
 graph LR
-a(Server Logs) --> b(Amazon Kinesis<br> Firehose) --> c{Amazon S3}
+a(Server Logs) --> b(Amazon Kinesis<br> Firehose) --> c(Amazon S3)
 
 c --> d(AWS Glue) --> e(Amazon<br> Ahena)
 c --> f(Amazon<br> Redshift) --> g(Amazon<br> Quicksight)
@@ -53,12 +53,12 @@ c --> f(Amazon<br> Redshift) --> g(Amazon<br> Quicksight)
 
 ```mermaid
 graph LR
-a{Server Logs}
+a(Server Logs)
 
-a --> b{Amazon Kinesis<br> Data Firehose}
-a --> c{Amazon Kinesis<br> Data Stream}
+a --> b(Amazon Kinesis<br> Data Firehose)
+a --> c(Amazon Kinesis<br> Data Stream)
 
-b --> b2{Amazon S3}
+b --> b2(Amazon S3)
 b --> b1(Amazon<br> ElasticSearh<br> Service)
 
 b2 --> b3(Amazon<br> Machine<br> Learning)

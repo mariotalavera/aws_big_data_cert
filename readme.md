@@ -25,23 +25,20 @@ The AWS Services in use for this cert can be roughly divided into the following 
 The collection category encompases the AWS products that deal with collecting data from logs, applications, services, etc.  
 Data collection can be roughly divided into the three main scenarios.  Depending in the scenario/requirement, the following AWS services are available.
 
-#### Real Time - Immediate actions
+* Real Time - Immediate actions
+  * Kinesis Data Streams (KDS)
+  * Simple Queue Service (SQS)
+  * Internet Of Things (IoT)
 
-* Kinesis Data Streams (KDS)
-* Simple Queue Service (SQS)
-* Internet Of Things (IoT)
+* Neat Real Time - Reactive actions
+  * Kinesis Data Firehose (KDF)
+  * Database Migration Service (DMS)
 
-#### Neat Real Time - Reactive actions
+* Batch - Historical analysis
+  * Snowball
+  * Data Pipeline
 
-* Kinesis Data Firehose (KDF)
-* Database Migration Service (DMS)
-
-#### Batch - Historical analysis
-
-* Snowball
-* Data Pipeline
-
----
+## Services
 
 * [Amazon Kinesis](amazon_kinesis.md)
 * [AWS IoT Core](aws_iot_core.md)
@@ -60,7 +57,3 @@ Data collection can be roughly divided into the three main scenarios.  Depending
 
 ### Security Category
 
-## Notes
-
-* [Scratch](scratch.md) - a place to write down quick notes to be categorised later
-* [Foam](https://foambubble.github.io/foam/recipes) - notes on how to do things in Foam.  The **framework** used for this docs.
