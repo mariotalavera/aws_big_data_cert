@@ -55,6 +55,19 @@ d --> e(consumers)
 * The number ofshards can evolve over time (reshard/merge)
 * Records are ordered per shard
 
+```mermaid
+graph LR
+a(producers) --> b(Shard 1)
+a(producers) --> c(Shard 2)
+a(producers) --> d(Shard 3)
+a(producers) --> e(Shard 3)
+
+b --> f(consumers)
+c --> f(consumers)
+d --> f(consumers)
+e --> f(consumers)
+```
+
 ## Kinesis Streams Records
 
     ┌────────────────────┐
@@ -105,7 +118,7 @@ d --> e(consumers)
 graph LR
 a(Apache<br> Spark) --> e(Amazon Kinesis Streams)
 b(SKD) --> e(Amazon Kinesis Streams)
-c(Kinesis<br> Producer<br> Library KPL ) --> e(Amazon Kinesis Streams) 
+c(Kinesis<br> Producer<br> Library KPL ) --> e(Amazon Kinesis Streams)
 d(Kinesis<br> Agent) --> e(Amazon Kinesis Streams)
 f(Kafka) --> e(Amazon Kinesis Streams)
 ```
@@ -117,7 +130,6 @@ f(Kafka) --> e(Amazon Kinesis Streams)
   * Spark, Log4J
   * Appenders, Flume, Kafka Connect, NiFi...
 
-
 ## Kinesys Producer SDK - PutRecords(s)
 
 ## AWS Kinesis API - Exceptions
@@ -126,7 +138,30 @@ f(Kafka) --> e(Amazon Kinesis Streams)
 
 ## Kinesis Producer Library (KPL) Batching
 
+    ┌─────────────────────────────────────┐
+    │ 2 KB |   40 KB   |      500 KB      │
+    └─────────────────────────────────────┘
+    ┌─────────────────────────────────────┐
+    │ 1 KB | 30 KB |  80 KB  |   200 KB   │
+    └─────────────────────────────────────┘
+
+* Collection - PutRecords
+* Aggregate into one record smaller < 1 MB
+* We can influence the batching efficiency by introducing some delay with RecordMaxBufferedTime (default 100 ms).
+
 ## Kinesis Agent
+
+* Monitor log files and sends them to Kinesis Data Streams
+* Java-based agent, built on top of KPL
+* Install in linux-based server environment.
+
+### Features
+
+* Write from multiple directories and write to multiple Streams.
+* Routing feature ased on directory / log file.
+* Pre-process data before sending to streams (single line, cv to json, log to json...)
+* The agent handles file rotation, checkpointing, and retry upon failures.
+* Emit metrics to CloudWatch for monitoring.
 
 ## Kinesis Consumers - Classic
 

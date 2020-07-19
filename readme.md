@@ -56,4 +56,3 @@ Data collection can be roughly divided into the three main scenarios.  Depending
 ### Visualization Category
 
 ### Security Category
-
