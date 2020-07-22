@@ -225,6 +225,22 @@ e --> g(Kinesis<br>Collector<br> Library)
   
 ## Kinesis Consumer SDK - GetRecords
 
+```mermaid
+flowchart LR
+a(Producer) --> b(Shard 1)
+a --> c(Shard 2)
+a --> d(Shard N)
+
+subgraph Kinesis Streams
+b
+c
+d
+end
+b <-- "GetRecords()"<br>Data --> e(Consumer <br> Application A)
+b <--> f(Consumer <br> Application B)
+b <--> g(Consumer <br> Application C)
+```
+
 * Classic Kinesis - Records are polled by consumers from a shard
 * Each shard has 2 MB total aggregate throughput
 * GetRecords returns up to 10 MB of data (then throttle for 5 seconds) or up to 10000 records
@@ -237,7 +253,6 @@ e --> g(Kinesis<br>Collector<br> Library)
 flowchart LR
 a("Kinesis<br> Client Library<br> (KCL)") -- Consume<br> messages --> b(Amazon Kinesis<br> ennabled app)
 a -- Consume<br> messages --> c(Amazon Kinesis<br> ennabled app)
-
 b <-- Checkpoint<br> progress --> d(Amazon<br> DynamoDB)
 c <-- Checkpoint<br> progress --> d
 ```
