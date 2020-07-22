@@ -1,5 +1,7 @@
 # Amazon Kinesis
 
+[Back](readme.md)
+
 ## AWS Kinesis Overview
 
 * Kinesis is a managed alternative to Apache Kafka.
@@ -112,7 +114,7 @@ e --> f(consumers)
   * 24 hours data retention by defaults.
   * Can be extended to 7 days.
 
-## Kinesis producers
+## Kinesis Producers
 
 ```mermaid
 graph LR
@@ -132,9 +134,41 @@ f(Kafka) --> e(Amazon Kinesis Streams)
 
 ## Kinesys Producer SDK - PutRecords(s)
 
+* APIs that are used are Putrecords (one) and PutRecords (many)
+* PutRecors uses batching and increases throughout => less HTTP Requests
+* ProvisionedThroughoutExceeded if we go over the limits.
+* AWS Mobile SDK: Andrid, IOS, etc...
+* Use Case: low throughput, higher latency, simple API, AWS Lambda
+* Managed AWS sources for Kinesis Data Streams
+  * CloudWatch Logs
+  * AWS IoT
+  * Kinesis Data Analytics
+  
 ## AWS Kinesis API - Exceptions
 
+* ProvisionedThroughputExceeded Exceptions
+  * Happens when sending more data (exceeding MB/s or TPS for any shard)
+  * Make sure you don't have a hot shard (such as your partition key is bad and yoo much data goes to that partition)
+
+* Solution
+  * Retries with backoff
+  * Increase shards (scaling)
+  * Ensure your partition key is a good one
+
 ## Kinesis Produer Library (KPL)
+
+* Easy to use and highli configurable C++/Java library
+* Used for building high performance, long running producres
+* Automated and configurable retry mechanism
+* Synchronous or Asynchronous API (better performance for async)
+* Submits metrics to CloudWatch for monitoring
+* Batching (both urned on by default) - increase throughout, decrease cost
+  * Collect - Records and Write multiple shards in the same PutRecords API call
+  * Aggregate - incresed latency
+    * Capability to store multiple records in one record (go over 1000 records per second limit)
+    * Increase payload size and improve throughut (maximize 1 MB/s limit)
+* Compression must be implemented by the user
+* KPL Records must be de-coded with KCL or special helper library
 
 ## Kinesis Producer Library (KPL) Batching
 
@@ -165,11 +199,78 @@ f(Kafka) --> e(Amazon Kinesis Streams)
 
 ## Kinesis Consumers - Classic
 
+```mermaid
+graph LR
+e(Amazon<br> Kinesis<br> Streams)
+e --> a(Apache<br> Spark)
+e --> b(Firehose)
+e --> c(AWS Lambda)
+e --> d(Kinesis<br>Consumer<br> Library)
+e --> f(SDK)
+e --> g(Kinesis<br>Collector<br> Library)
+```
+
+* Kinesis SDK
+* Kinesis Client Library (KCL)
+* Kinesis Connector Library
+* 3rd party libraries
+  * Spark
+  * Log4J Appenders
+  * Flume
+  * Kafka Connect
+  * etc
+* Kinesis Firehose
+* AWS Lambda
+* (Kinesis Consumer Enhanced Fan-out discussed in the next lecture)
+  
 ## Kinesis Consumer SDK - GetRecords
 
+* Classic Kinesis - Records are polled by consumers from a shard
+* Each shard has 2 MB total aggregate throughput
+* GetRecords returns up to 10 MB of data (then throttle for 5 seconds) or up to 10000 records
+* Maximum of 5 GetRecords API calls per shard per second = 200 ms latency
+* If 5 consumers applicaiton consume fromthe same shard, means every consumer can poll once a second and receive less than 400 KB/s.
+  
 ## Kinesis Client Library (KCL)
 
+```mermaid
+flowchart LR
+a("Kinesis<br> Client Library<br> (KCL)") -- Consume<br> messages --> b(Amazon Kinesis<br> ennabled app)
+a -- Consume<br> messages --> c(Amazon Kinesis<br> ennabled app)
+
+b <-- Checkpoint<br> progress --> d(Amazon<br> DynamoDB)
+c <-- Checkpoint<br> progress --> d
+```
+
+* Java-first library but exists for other languages (Golang, Python, Ruby, Node, .NET...)
+* Read records from Kinesis produced with the KPL (de-aggregation)
+* Share multiple shards with multiple consumers in one "group", shard discovery
+* Checkpointing feature to resume progress
+* Leverages DynamoDB for coordination and checkpointing (one row per shard)
+  * Make sure to provision enough WCU / RCU
+  * Or use On-Demmand for DynamoDB
+  * Otherwise DynamoDB may slow down KCL
+* Record processos will process the data.
 ## Kinesis Connector Library
+
+
+```mermaid
+graph LR
+z(Amazon Kinesis<br> Data Streams) --> a(Connector Libray<br> running on EC2)
+a --> b(Amazon S3)
+a --> c(Amazon<br> DynamoDB)
+a --> d(Amazon<br> Redshift)
+a --> e(Amazon<br> ElasticSeach<br> Service)
+```
+
+* Older Java Library (2016)
+* Levrages the KCL Library
+* Writes data to:
+  * Amazon S3
+  * DynamoDb
+  * Redshift
+  * ElasticSearch
+* Kinesis Firehose replaces the Connector Library for a few of these targets. Lambda for the others.
 
 ## AWS Lambda sourcing from Kinesis
 
