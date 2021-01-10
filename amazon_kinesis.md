@@ -266,8 +266,8 @@ c <-- Checkpoint<br> progress --> d
   * Or use On-Demmand for DynamoDB
   * Otherwise DynamoDB may slow down KCL
 * Record processos will process the data.
-## Kinesis Connector Library
 
+## Kinesis Connector Library
 
 ```mermaid
 graph LR
@@ -299,3 +299,30 @@ a --> e(Amazon<br> ElasticSeach<br> Service)
   * Anywhere you want.
 * Lambda can be used to trigger notifications / send emails in real time.
 * Lambda has a configurable batch size (more in Lambda section).
+
+## Kinesis Enhanced Fan Out
+
+* New game-changing feature from Aug 2018
+* Works with KCL 2.0 and AWS Lambda (Nov 2018)
+* Each consumer gets2 MB/s of provisioned throughput per shard
+* That means 20 consumers will get 40 MB/s per shard aggreagated
+* No more 2 MB/s limit!
+* Enhanced Fan Out: Kinesis pushes data to consumers over HTTP/2
+* Reduce latency (~70 ms now)
+* A little more expensive
+
+## Enhanced Fan-Out vs Standard Consumners
+
+* Standard Consumers:
+  * Low number of consuming applications (1,2,3...)
+  * Can tolerate ~200 ms latency
+  * Minimize cost
+
+* Enhanced Fan Out Consumners:
+  * Multiple Consumer applicaitons for the same stream
+  * Low latency requirements ~70 ms
+  * Higher costs (See Kinesis pricing page)
+  * Default limit of 5 consumers using enhanced fan-out per data stream
+
+## Bookmark - end of video2_5.mp4
+
